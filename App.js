@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, Button } from 'react-native';
+import { View, Text, StyleSheet, Button, Image } from 'react-native';
 import { BarCodeScanner } from 'expo-barcode-scanner';
 
 const QRScannerApp = () => {
@@ -77,17 +77,20 @@ const QRScannerApp = () => {
 
   return (
     <View style={styles.container}>
+      <Image source={require('./images/imagen_fondo..jpg')} style={styles.fondo} />
+      <View style={styles.logoContainer}>
+        <Image source={require('./images/qr_logo_Mesa de trabajo 1.png')} style={styles.logo} />
+      </View>
       <View style={styles.scannerContainer}>
         <BarCodeScanner
           onBarCodeScanned={scanned ? undefined : handleBarCodeScanned}
           style={styles.barcodeScanner}
         />
       </View>
-
       <View style={styles.dataContainer}>
         {scanned && (
           <View style={styles.overlay}>
-            <Text style={styles.scanMessage}>Escaneado: {scannedData}</Text>
+            <Text style={styles.scanMessage}>{scannedData}</Text>
           </View>
         )}
         <View style={[styles.scanAgainContainer, scanned && styles.scanAgainContainerScanned]}>
@@ -105,31 +108,38 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff'
   },
+  logoContainer: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginTop: 40, // Aumenta el margen superior para bajar la imagen
+  },
+  logo: {
+    width: 200,  // ANCHO DE LA IMAGEN
+    height: 170, // ALTO DE LA IMAGEN
+    resizeMode: 'contain',
+  },
   scannerContainer: {
+    flex: 2,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginTop: -20, // REDUCIR LOS MARGENES
+  },
+  barcodeScanner: {
+    width: '90%',
+    height: '90%',
+  },
+  dataContainer: {
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
   },
-  barcodeScanner: {
-    alignContent: 'center',
-    alignSelf: 'center',
-    padding: '10%',
-    marginTop: '60%',
-    width: 250,
-    height: 300,
-    backgroundColor: '#fff'
-  },
-  dataContainer: {
-    flex: 0.5, // Cambiado para que sea más chico
-    alignItems: 'center',
-    backgroundColor: 'red' // Cambiado a rojo
-  },
   overlay: {
-    flex: 0.7,
-    backgroundColor: '#fff',
+    backgroundColor: 'rgba(255, 255,255,0.5)',
+    borderRadius: 20,
     justifyContent: 'center',
     alignItems: 'center',
-    padding: 10,
+    padding: 20,
   },
   scanMessage: {
     fontSize: 16,
@@ -138,18 +148,19 @@ const styles = StyleSheet.create({
   },
   scanAgainContainer: {
     alignItems: 'center',
-    marginTop: '30%'
+    marginTop: '5%',
   },
   scanAgainContainerScanned: {
-    marginTop: 20,
+    marginTop: -7,
   },
   scanAgainButtonContainer: {
-    borderRadius: 79, // Añadido borderRadius
-    shadowColor: '#000',
-    shadowOffset: { width: 5, height: 5 },
-    shadowOpacity: 0.3,
-    shadowRadius: 5,
-    elevation: 5, // Para Android
+    borderRadius: 80,
+    padding: 20
+  },
+  fondo:{
+    height: 920,
+    width: '100%',
+   position: 'absolute',
   },
 });
 
