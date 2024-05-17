@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, Button, FlatList } from 'react-native';
+import { View, Text, StyleSheet, Button } from 'react-native';
 import { BarCodeScanner } from 'expo-barcode-scanner';
 
 const QRScannerApp = () => {
@@ -88,28 +88,12 @@ const QRScannerApp = () => {
         {scanned && (
           <View style={styles.overlay}>
             <Text style={styles.scanMessage}>Escaneado: {scannedData}</Text>
-            
-            <FlatList
-              style={styles.dataList}
-              data={dataItems}
-              renderItem={({ item }) => (
-                <View>
-                  <Text style={styles.dataItem}>Nombre: {item.nombre}</Text>
-                  <Text style={styles.dataItem}>Correo: {item.correo}</Text>
-                  <Text style={styles.dataItem}>Empresa: {item.empresa}</Text>
-                </View>
-              )}
-              keyExtractor={(item, index) => index.toString()}
-            />
-
-            <View style={styles.buttonsContainer}>
-              <Button title="Guardar Datos" onPress={handleSaveData} color="#1B512D" />
-              <Button title="Borrar Tabla" onPress={handleClearTable} color="red" />
-            </View>
           </View>
         )}
-        <View style={styles.scanAgainContainer}>
-          <Button title="Escanear de Nuevo" onPress={handleScanAgain} />
+        <View style={[styles.scanAgainContainer, scanned && styles.scanAgainContainerScanned]}>
+          <View style={styles.scanAgainButtonContainer}>
+            <Button title="Escanear de Nuevo" onPress={handleScanAgain} />
+          </View>
         </View>
       </View>
     </View>
@@ -127,46 +111,46 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   barcodeScanner: {
-    width: 350,
+    alignContent: 'center',
+    alignSelf: 'center',
+    padding: '10%',
+    marginTop: '60%',
+    width: 250,
     height: 300,
     backgroundColor: '#fff'
   },
   dataContainer: {
-    flex: 1,
+    flex: 0.5, // Cambiado para que sea más chico
     alignItems: 'center',
+    backgroundColor: 'red' // Cambiado a rojo
   },
   overlay: {
-    flex: 1,
+    flex: 0.7,
     backgroundColor: '#fff',
     justifyContent: 'center',
     alignItems: 'center',
+    padding: 10,
   },
   scanMessage: {
-    fontSize: 10,
-    marginBottom: 15,
-  },
-  dataList: {
-    marginTop: 20,
-    width: '100%',
-    backgroundColor: '#fff'
-  },
-  dataItem: {
-    paddingHorizontal: 20,
-    paddingVertical: 10,
-    borderBottomWidth: 1,
-    borderBottomColor: '#090809',
-  },
-  buttonsContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    paddingHorizontal: 20,
-    width: '100%',
-    marginTop: 20
+    fontSize: 16,
+    marginBottom: 10,
+    textAlign: 'center',
   },
   scanAgainContainer: {
     alignItems: 'center',
+    marginTop: '30%'
+  },
+  scanAgainContainerScanned: {
     marginTop: 20,
-  }
+  },
+  scanAgainButtonContainer: {
+    borderRadius: 79, // Añadido borderRadius
+    shadowColor: '#000',
+    shadowOffset: { width: 5, height: 5 },
+    shadowOpacity: 0.3,
+    shadowRadius: 5,
+    elevation: 5, // Para Android
+  },
 });
 
 export default QRScannerApp;
