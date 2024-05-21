@@ -1,0 +1,12 @@
+{
+  "expo": {
+    "extra": {
+      "eas": {
+        "projectId": "c368b341-a739-4296-a45c-c8994e662240"
+      }
+    },
+    "android": {
+      "package": "com.aldotd_12.app_qr"
+    }
+  }
+}

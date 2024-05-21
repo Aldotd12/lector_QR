@@ -30,12 +30,13 @@ const QRScannerApp = () => {
 
   const saveDataToServer = async (data) => {
     try {
-      const response = await fetch('http://192.168.15.136:8080/registrodialogosciudadanos2024/asistencia.php', {
+      const response = await fetch('https://dialogosciudadanos2024.000webhostapp.com/asistencia.php', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         },
-        body: `nombre=${encodeURIComponent(data.nombre)}&correo=${encodeURIComponent(data.correo)}&empresa=${encodeURIComponent(data.empresa)}`
+        body: `nombre=${encodeURIComponent(data.nombre)}&correo=${encodeURIComponent(data.correo)}&empresa=${encodeURIComponent(data.empresa)}
+        &fecha=${encodeURIComponent(data.fecha)}}`
       });
       if (!response.ok) {
         throw new Error('Error al guardar datos en el servidor');
